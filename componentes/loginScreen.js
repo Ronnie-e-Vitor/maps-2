@@ -40,7 +40,7 @@ const LoginScreen = ({navigation}) => {
 // Verifique a estrutura da resposta
         navigation.navigate('Home',{nome: nome, userId: userId}); 
       } else {
-        console.log('Erro', `Erro: ${jsonResponse.message || 'Não foi possível salvar os dados'}`);
+        console.log('Erro', `Erro: ${jsonResponse.message || 'Não foi  salvar os dados'}`);
       }
     } catch (error) {
       console.log('Erro', `Erro de conexão: ${error.message}`);
