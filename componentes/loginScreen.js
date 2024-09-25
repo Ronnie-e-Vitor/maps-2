@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image, Picker } from 'react-native';
+import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,12 +13,13 @@ const LoginScreen = ({navigation}) => {
   const [moduloUser, setModuloUser] = useState('');
   const [cursoUser, setCursoUser] = useState('');
   const [carregando, setCarregando] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
 
 
   const verificar = async () => {
     setCarregando(true)
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/login', {
+      const response = await fetch('http://192.168.18.25:8000/api/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -73,7 +75,7 @@ const LoginScreen = ({navigation}) => {
       <View style={styles.inputs}>
       <View style={styles.inputView}>
         <FontAwesome5 name="user" size={20} color="rgb(208 153 245)" style={{backgroundColor:'#fcf7fe', width:'15%', height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%',}} />
+         justifyContent:'center', alignItems:'center', borderRadius:50,}} />
           <TextInput 
               style={styles.input}
               placeholder= "Nome..."
@@ -84,7 +86,7 @@ const LoginScreen = ({navigation}) => {
 
         <View style={styles.inputView}>
         <FontAwesome name="graduation-cap" size={20} color="#83cbfe" style={{backgroundColor:'#eff8ff', width:'15%', height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%'}} />      
+         justifyContent:'center', alignItems:'center', borderRadius:50}} />      
          <Picker
             style={{width:'100%',  borderWidth: 0}}
         selectedValue={cursoUser} 
@@ -101,7 +103,7 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.inputView}>
           <FontAwesome name="pencil" size={20} color="rgb(254 176 61)" style={{backgroundColor:'rgb(255 247 236)', width:'15%',
            height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%',}} />
+         justifyContent:'center', alignItems:'center', borderRadius:50,}} />
              <Picker
             style={{width:'100%',  borderWidth: 0}}
         selectedValue={moduloUser} 

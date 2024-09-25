@@ -1,56 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import NavBar from './navBar';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 
-const Consulta = () => {
-  const [usuarios, setUsuarios] = useState([]);
-  
+const ListaAtrasosAlunoScreen = ({ route }) => {
+  const { userId } = route.params; // ID do usuário cujos atrasos estamos exibindo
+  const [atrasos, setAtrasos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/usuarios')
-      .then(response => response.json())
-      .then(data => setUsuarios(data))
-      .catch(error => console.error('Error:', error));
+    fetchAtrasos();
   }, []);
 
+  const fetchAtrasos = async () => {
+    try {
+      // Chamar a API para buscar os atrasos do aluno pelo ID
+      const response = await fetch(`http://192.168.18.25:8000/api/usuarios/${userId}/chegadas`);
+      const data = await response.json();
+      setAtrasos(data); // Atualizar o estado com os dados dos atrasos
+      setLoading(false); // Indicar que os dados foram carregados
+    } catch (error) {
+      console.error('Erro ao buscar atrasos:', error);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.centered]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
-    <View>
-      
-
-
+    <View style={styles.container}>
       <FlatList
-        data={usuarios}
-        keyExtractor={item => item.id.toString()}
+        data={atrasos}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={styles.container}>
-              <NavBar />
-
-            <View style={styles.cardConsulta}>
-            <Text>{item.nome}</Text>
-            <Text>{item.modulo}</Text>
-            <Text>{item.curso}</Text>
-            </View>
+          <View style={styles.item}>
+            <Text>Nome: {item.nome}</Text>
+            <Text>Módulo: {item.modulo}</Text>
+            <Text>Curso: {item.curso}</Text>
+            <Text>Data/Hora de Chegada: {item.data_hora_chegada}</Text>
           </View>
         )}
       />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  item: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+});
 
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'blue',
-        padding: 5,
-      },
-
-      cardConsulta:{
-        borderBottomWidth:2,
-        backgroundColor: 'white',
-        width: '100%',
-      },
-
- });
-
-export default Consulta;
+export default ListaAtrasosAlunoScreen;

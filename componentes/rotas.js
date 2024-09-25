@@ -17,7 +17,7 @@ const Rotas = () => {
         headerShown: false, 
       }}
 
-      initialRouteName="Consulta"
+      initialRouteName="Login"
     >
       <Stack.Screen name="Cadastro" component={CadastroScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />

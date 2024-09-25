@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image, Picker } from 'react-native';
+import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image} from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { Picker } from '@react-native-picker/picker';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -17,7 +18,7 @@ const CadastroScreen = ({navigation}) => {
   const verificar = async () => {
     setCarregando(true)
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/register', {
+      const response = await fetch('http://192.168.18.25/api/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -64,7 +65,7 @@ const CadastroScreen = ({navigation}) => {
       <View style={styles.inputs}>
       <View style={styles.inputView}>
         <FontAwesome5 name="user" size={20} color="rgb(208 153 245)" style={{backgroundColor:'#fcf7fe', width:'15%', height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%',}} />
+         justifyContent:'center', alignItems:'center', borderRadius:50,}} />
           <TextInput 
               style={styles.input}
               placeholder= "Nome..."
@@ -75,7 +76,7 @@ const CadastroScreen = ({navigation}) => {
 
         <View style={styles.inputView}>
         <FontAwesome name="graduation-cap" size={20} color="#83cbfe" style={{backgroundColor:'#eff8ff', width:'15%', height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%'}} />      
+         justifyContent:'center', alignItems:'center', borderRadius:50}} />      
          <Picker
             style={{width:'100%',  borderWidth: 0}}
         selectedValue={cursoUser} 
@@ -92,7 +93,7 @@ const CadastroScreen = ({navigation}) => {
         <View style={styles.inputView}>
           <FontAwesome name="pencil" size={20} color="rgb(254 176 61)" style={{backgroundColor:'rgb(255 247 236)', width:'15%',
            height:'200%', display: 'flex',
-         justifyContent:'center', alignItems:'center', borderRadius:'50%',}} />
+         justifyContent:'center', alignItems:'center', borderRadius:50,}} />
              <Picker
             style={{width:'100%',  borderWidth: 0}}
         selectedValue={moduloUser} 
