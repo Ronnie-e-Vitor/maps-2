@@ -13,7 +13,7 @@ const ListaAtrasosAlunoScreen = ({ route }) => {
   const fetchAtrasos = async () => {
     try {
       // Chamar a API para buscar os atrasos do aluno pelo ID
-      const response = await fetch(`http://192.168.18.25:8000/api/usuarios/${userId}/chegadas`);
+      const response = await fetch(`http://127.0.0.1:8000/api/usuarios/${userId}/chegadas`);
       const data = await response.json();
       setAtrasos(data); // Atualizar o estado com os dados dos atrasos
       setLoading(false); // Indicar que os dados foram carregados

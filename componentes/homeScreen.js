@@ -1,50 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Modal, Alert, StyleSheet,Image, TouchableOpacity,   } from 'react-native';
-import logo from '../assets/atreisonV2.jpg'
+import { View, Text, Modal, Alert, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import logo from '../assets/atreisonV2.jpg';
 import { BarCodeScanner } from 'expo-barcode-scanner'; // Importa o scanner de QR Code
-
-
+import Entypo from '@expo/vector-icons/Entypo';
 function HomeScreen({ route, navigation }) {
   const { nome, userId } = route.params; // Assume que você está passando userId como "id" no parâmetro
   const [modalVisible, setModalVisible] = useState(false);
   const [alunoId, setAlunoId] = useState(userId);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [scannerVisible, setScannerVisible] = useState(false); // Estado para controlar o scanner
-
+ 
   useEffect(() => {
     if (!alunoId) {
       Alert.alert('Erro', 'ID do aluno não encontrado.');
     }
   }, [alunoId]);
 
-  useEffect(() => {
-    const getBarCodeScannerPermissions = async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    };
-
-    getBarCodeScannerPermissions();
-  }, []);
-
-  const handleBarCodeScanned = async ({ type, data }) => {
-    setScanned(true);
-    const scannedUserId = data; // Presume que o QR Code contém o userId
-    setAlunoId(scannedUserId); // Atualiza alunoId com o ID escaneado
-    setModalVisible(true); // Abre o modal de confirmação
-  };
-
   const registrarAtraso = async (usuarioId) => {
     console.log("Registrando atraso para o usuário:", usuarioId); // Log do ID do usuário
-  
+
     try {
-      const response = await fetch(`http://192.168.18.25:8000/api/usuarios/${usuarioId}/registrar-chegada`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/usuarios/${usuarioId}/registrar-chegada`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       console.log("Resposta da API:", response); // Log da resposta da API
       if (response.ok) {
         Alert.alert('Sucesso', 'Atraso registrado com sucesso!');
@@ -58,11 +40,6 @@ function HomeScreen({ route, navigation }) {
       Alert.alert('Erro', `Erro: ${error.message}`);
     }
   };
-  
-
-  const handleRegistrarAtraso = () => {
-    setScannerVisible(true); // Exibir o scanner quando o botão for clicado
-  };
 
   const confirmarRegistro = async () => {
     setModalVisible(false);
@@ -75,19 +52,29 @@ function HomeScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+
+
       <View style={styles.info}>
         <View style={{ width: '100%' }}>
+          {/* icone */}
+        <View style={{ justifyContent: 'flex-end',flex: 1,alignItems: 'flex-end',flexDirection: 'row', marginBottom:-20, }}>
+        <Entypo name="location-pin" size={24} color="black" />
+        </View>
+        {/* imagem */}
           <Image source={logo} style={{ width: '100%', height: 400 }} />
         </View>
+        
+        
         <View style={styles.elementos}>
           <Text style={styles.welcome}>Bem-Vindo</Text>
           <Text style={styles.nick}>{nome}</Text>
         </View>
       </View>
 
-      <TouchableOpacity style={styles.checkButton} onPress={handleRegistrarAtraso}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', color: "white" }}>Cadastrar Atraso</Text>
-      </TouchableOpacity>
+      <TouchableOpacity style={styles.checkButton} onPress={() => navigation.navigate('QRCod')}>
+  <Text style={{ fontSize: 20, fontWeight: 'bold', color: "white" }}>Cadastrar Atraso</Text>
+</TouchableOpacity>
+
 
       <TouchableOpacity
         style={styles.checkButton}
@@ -119,24 +106,6 @@ function HomeScreen({ route, navigation }) {
           </View>
         </View>
       </Modal>
-
-      {/* Componente do scanner */}
-      {scannerVisible && (
-        <View style={{ flex: 1 }}>
-          {hasPermission === null ? (
-            <Text>Solicitando permissão para a câmera...</Text>
-          ) : hasPermission === false ? (
-            <Text>Sem acesso à câmera</Text>
-          ) : (
-            <BarCodeScanner
-              onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-              style={StyleSheet.absoluteFillObject}
-            />
-          )}
-          {scanned && <Button title={'Escanear novamente'} onPress={() => setScanned(false)} />}
-          <Button title={'Fechar Scanner'} onPress={() => setScannerVisible(false)} />
-        </View>
-      )}
     </View>
   );
 }
@@ -174,39 +143,36 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
-
-  info:{
-    alignItems:"center",
-    justifyContent:'center',
+  info: {
+    alignItems: "center",
+    justifyContent: 'center',
     marginBottom: 20,
     flexDirection: 'column',
-    textAlign:'center',
+    textAlign: 'center',
     width: '100%',
-    },
-
-    checkButton:{
-      padding:20,
-      backgroundColor:'#1F618D', 
-      width:"80%",
-      marginTop:15,
-      borderRadius:6,
-      alignItems:"center"
-       },
-
-       nick:{
-        fontSize: 22,
-        color: '#3aad59',
-        fontWeight:'bold',
-        fontFamily:'Arial',
-      },
-      elementos:{
-        width: '100%',
-        display:'flex',
-        flexDirection:'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      textAlign: 'center',
-        }
+  },
+  checkButton: {
+    padding: 20,
+    backgroundColor: '#1F618D',
+    width: "80%",
+    marginTop: 15,
+    borderRadius: 6,
+    alignItems: "center"
+  },
+  nick: {
+    fontSize: 22,
+    color: '#3aad59',
+    fontWeight: 'bold',
+    fontFamily: 'Arial',
+  },
+  elementos: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  }
 });
 
 export default HomeScreen;

@@ -18,7 +18,7 @@ const CadastroScreen = ({navigation}) => {
   const verificar = async () => {
     setCarregando(true)
     try {
-      const response = await fetch('http://192.168.18.25/api/register', {
+      const response = await fetch('http://127.0.0.1:8000/api/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
