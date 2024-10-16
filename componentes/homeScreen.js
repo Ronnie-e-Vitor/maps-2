@@ -75,6 +75,10 @@ function HomeScreen({ route, navigation }) {
   <Text style={{ fontSize: 20, fontWeight: 'bold', color: "white" }}>Cadastrar Atraso</Text>
 </TouchableOpacity>
 
+      <TouchableOpacity style={styles.checkButton} onPress={() => navigation.navigate('Mapas')}>
+  <Text style={{ fontSize: 20, fontWeight: 'bold', color: "white" }}>Ver endereços</Text>
+</TouchableOpacity>
+
 
       <TouchableOpacity
         style={styles.checkButton}

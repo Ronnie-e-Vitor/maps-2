@@ -2,18 +2,20 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
+
+const customMarker = require('../assets/marker.png'); // substitua pelo caminho correto
 const markers = [
   {
-    latitude:  25.419430322385967,
-    longitude: 51.499813604689066,
-    title: "Catar",
-    description: "Estádio: Lusail Iconic Stadium",
+    latitude:  -23.556660,
+    longitude: -46.391745,
+    title: "Ronnie",
+    description: "Rua do Ronnie",
   },
   {
-    latitude: 55.71546803054441,
-    longitude: 37.55323161515836,
-    title: "Russia",
-    description: "Estádio: Luzhniki Stadium",
+    latitude: -23.531785,
+    longitude: -46.427553,
+    title: "ETEC",
+    description: "Etec de Guaianases",
   },
   {
     latitude: -22.91209850519803,
@@ -54,6 +56,7 @@ export default function App() {
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
             title={marker.title}
             description={marker.description}
+            image={customMarker} style={{ width: 2, height: 2 }} // Adiciona a imagem personalizada ao marcador
           />
         ))}
       </MapView>

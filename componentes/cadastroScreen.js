@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image} from 'react-native';
+import { View, Text, TextInput, Button, Alert, TouchableOpacity, ScrollView, StyleSheet,Image,} from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { Picker } from '@react-native-picker/picker';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -49,6 +49,7 @@ const CadastroScreen = ({navigation}) => {
   }
 
   return (
+    <ScrollView>
     <View style={styles.container}>
          {carregando ? (
             <Loading />
@@ -112,13 +113,21 @@ const CadastroScreen = ({navigation}) => {
 
       <TouchableOpacity onPress={verificar}style={{padding:20, backgroundColor:'#8b2fdc', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
         <Text style={{fontSize:20, fontWeight:'bold', color:"white"}}>Enviar</Text>
+      </TouchableOpacity>  
 
 
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}style={{padding:20, backgroundColor:'#3CB371', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
+        <Text style={{fontSize:20, fontWeight:'bold', color:"white"}}>login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Mapas')}style={{padding:20, backgroundColor:'#3CB371', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
+        <Text style={{fontSize:20, fontWeight:'bold', color:"white", marginBottom:"20px"}}>Endereços</Text>
       </TouchableOpacity>
 
       </>
         )}
     </View>
+    </ScrollView>
    
   );
 };
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     paddingHorizontal:12,
-    height: '100%',
+    height: '103%',
   },
 
   inputView:{
