@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 
-const customMarker = require('../assets/marker.png'); // substitua pelo caminho correto
+const customMarker = require('../assets/marker.png'); 
 const markers = [
   {
     latitude:  -23.556660,
@@ -12,22 +12,22 @@ const markers = [
     description: "Rua do Ronnie",
   },
   {
-    latitude: -23.531785,
-    longitude: -46.427553,
+    latitude: -23.553125,
+    longitude: -46.399641,
     title: "ETEC",
     description: "Etec de Guaianases",
   },
   {
-    latitude: -22.91209850519803,
-    longitude: -43.230164719786096,
-    title: "Brasil",
-    description: "Estádio do Maracanã",
+    latitude: -23.536201,
+    longitude: -46.436698,
+    title: "Casa da Maria",
+    description: "Travessa Tucupi 17",
   },
   {
-    latitude: -26.23474725339487,
-    longitude: 27.982837785918527,
-    title: "África do Sul",
-    description: "Soccer City (FNB Stadium)",
+    latitude: -23.549841,
+    longitude: -46.372212,
+    title: "Casa da gabi",
+    description: "Av Hermes Teles Ribeiro",
   },
   {
     latitude: 52.5145997505001,
@@ -44,8 +44,8 @@ export default function App() {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude:  -23.556660,
+          longitude: -46.391745,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}

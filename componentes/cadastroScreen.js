@@ -18,7 +18,7 @@ const CadastroScreen = ({navigation}) => {
   const verificar = async () => {
     setCarregando(true)
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/register', {
+      const response = await fetch('http://10.0.0.169:8000/api/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -116,12 +116,12 @@ const CadastroScreen = ({navigation}) => {
       </TouchableOpacity>  
 
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}style={{padding:20, backgroundColor:'#3CB371', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}style={{padding:20, backgroundColor:'#8b2fdc', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
         <Text style={{fontSize:20, fontWeight:'bold', color:"white"}}>login</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Mapas')}style={{padding:20, backgroundColor:'#3CB371', width:"100%", marginTop:15, borderRadius:6, alignItems:"center"}}>
-        <Text style={{fontSize:20, fontWeight:'bold', color:"white", marginBottom:"20px"}}>Endereços</Text>
+        <Text style={{fontSize:20, fontWeight:'bold', color:"white", marginBottom:"20px"}}>Ver Endereços</Text>
       </TouchableOpacity>
 
       </>

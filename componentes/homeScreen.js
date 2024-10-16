@@ -20,7 +20,7 @@ function HomeScreen({ route, navigation }) {
     console.log("Registrando atraso para o usuário:", usuarioId); // Log do ID do usuário
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/usuarios/${usuarioId}/registrar-chegada`, {
+      const response = await fetch(`http://10.0.0.169:8000/api/usuarios/${usuarioId}/registrar-chegada`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
